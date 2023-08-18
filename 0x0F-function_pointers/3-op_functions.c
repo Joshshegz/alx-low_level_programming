@@ -1,46 +1,64 @@
-
-#include <stdio.h>
-#include <stdlib.h>
+#include "3-calc.h"
 
 /**
-*main -  program that prints the opcodes of its own main function.
-*@argc: number of arguments passed to the program
-*@argv: array of arguments
+*op_add - Returns the sum of two numbers
+*@a:the first number
+*@b:the second number
 *
-*Return: on success, 1 or 2 in case of failure
+*Return:The sum of a and b
 */
 
-int main(int argc, char *argv[])
+int op_add(int a, int b)
 {
-
-int index, bytes;
-int (*address)(int, char **) = main;
-unsigned char opcode;
-
-if (argc != 2)
-{
-printf("Error\n");
-exit(1);
+return (a + b);
 }
 
-bytes = atoi(argv[1]);
 
-if (bytes < 0)
+/**
+*op_sub - Returns the substraction of two numbers
+*@a:The first number
+*@b:The second number
+*
+*Return: The Difference of a and b
+*/
+int op_sub(int a, int b)
 {
-printf("Error\n");
-exit(2);
+return (a - b);
 }
 
-for (index = 0; index <  bytes; index++)
+/**
+*op_mul - Returns the multiplication of two numbers
+*@a:The first number
+*@b: The second number
+*
+*Return: The multiplication of a and b
+*/
+int op_mul(int a, int b)
 {
-opcode = *(unsigned char *)address;
-printf("%.2x", opcode);
+return (a * b);
+}
 
-if (index == bytes - 1)
-continue;
-printf(" ");
-address++;
+
+/**
+*op_div - Returns the division of two numbers.
+*@a: The first number.
+*@b: The second number.
+*
+*Return: The quotient of a and b.
+*/
+int op_div(int a, int b)
+{
+return (a / b);
 }
-printf("\n");
-return (0);
-}
+
+/**
+*op_mod - Returns the remainder of the division of two numbers.
+*@a: The first number.
+*@b: The second number.
+*
+*Return: The remainder of the division of a by b.
+*/
+int op_mod(int a, int b)
+{
+return (a % b);
+}}
