@@ -1,45 +1,41 @@
+#include "3-calc.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 /**
-*main -  program that prints the opcodes of its own main function.
-*@argc: number of arguments passed to the program
-*@argv: array of arguments
+* main - Prints the result of simple operations.
+* @argc: The number of arguments supplied to the program.
+* @argv: An array of pointers to the arguments.
 *
-*Return: on success, 1 or 2 in case of failure
+* Return: Always 0.
 */
 
-int main(int argc, char *argv[])
+int main(int __attribute__((__unused__)) argc, char *argv[])
 {
+int num1, num2;
+char *op;
 
-int index, bytes;
-int (*address)(int, char **) = main;
-unsigned char opcode;
-
-if (argc != 2)
+if (argc != 4)
 {
 printf("Error\n");
-exit(1);
+exit(98);
 }
 
-bytes = atoi(argv[1]);
+num1 = atoi(argv[1]);
+op = argv[2];
+num2 = atoi(argv[3]);
 
-if (bytes < 0)
+if (get_op_func(op) == NULL || op[1] != '\0')
 {
 printf("Error\n");
-exit(2);
+exit(99);
 }
 
-for (index = 0; index <  bytes; index++)
+if ((*op == '/' && num2 == 0) || (*op == '%' && num2 == 0))
 {
-opcode = *(unsigned char *)address;
-printf("%.2x", opcode);
-
-if (index == bytes - 1)
-continue;
-printf(" ");
-address++;
+printf("Error\n");
+exit(100);
 }
-printf("\n");
+printf("%d\n", get_op_func(op)(num1, num2));
 return (0);
 }
