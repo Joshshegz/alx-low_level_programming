@@ -1,45 +1,55 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include "function_pointers.h"
 
 /**
-*main -  program that prints the opcodes of its own main function.
-*@argc: number of arguments passed to the program
-*@argv: array of arguments
-*
-*Return: on success, 1 or 2 in case of failure
-*/
-
-int main(int argc, char *argv[])
+ * is_98 - check if a number is equal to 98
+ * @elem: the integer to check
+ *
+ * Return: 0 if false, something else otherwise.
+ */
+int is_98(int elem)
 {
-
-int index, bytes;
-int (*address)(int, char **) = main;
-unsigned char opcode;
-
-if (argc != 2)
-{
-printf("Error\n");
-exit(1);
+    return (98 == elem);
 }
 
-bytes = atoi(argv[1]);
-
-if (bytes < 0)
+/**
+ * is_strictly_positive - check if a number is greater than 0
+ * @elem: the integer to check
+ *
+ * Return: 0 if false, something else otherwise.
+ */
+int is_strictly_positive(int elem)
 {
-printf("Error\n");
-exit(2);
+    return (elem > 0);
 }
 
-for (index = 0; index <  bytes; index++)
+
+/**
+ * abs_is_98 - check if the absolute value of a number is 98
+ * @elem: the integer to check
+ *
+ * Return: 0 if false, something else otherwise.
+ */
+int abs_is_98(int elem)
 {
-opcode = *(unsigned char *)address;
-printf("%.2x", opcode);
+    return (elem == 98 || -elem == 98);
+}
 
-if (index == bytes - 1)
-continue;
-printf(" ");
-address++;
-}
-printf("\n");
-return (0);
-}
+/**
+ * main - check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+    int array[20] = {0, -98, 98, 402, 1024, 4096, -1024, -98, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 98};
+    int index;
+
+    index = int_index(array, 20, is_98);
+    printf("%d\n", index);
+    index = int_index(array, 20, abs_is_98);
+    printf("%d\n", index);
+    index = int_index(array, 20, is_strictly_positive);
+    printf("%d\n", index);
+    return (0);
+}}
